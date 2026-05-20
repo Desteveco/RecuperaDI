@@ -1,0 +1,153 @@
+/* =========================================================================
+   ESTILOS GENERALES
+   ========================================================================= */
+QWidget {
+    font-family: "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    color: #333333;
+    background-color: #F8F9FA;
+}
+
+/* =========================================================================
+   PESTAÑAS (QTabWidget)
+   ========================================================================= */
+QTabWidget::pane {
+    border: 1px solid #DEE2E6;
+    background: #FFFFFF;
+    border-radius: 4px;
+}
+
+QTabBar::tab {
+    background: #E9ECEF;
+    color: #495057;
+    padding: 8px 16px;
+    border: 1px solid #DEE2E6;
+    border-bottom: none;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-right: 2px;
+}
+
+QTabBar::tab:selected {
+    background: #FFFFFF;
+    color: #0d6efd;
+    font-weight: bold;
+    border-bottom: 2px solid #0d6efd;
+}
+
+QTabBar::tab:hover:!selected {
+    background: #DEE2E6;
+}
+
+/* =========================================================================
+   CAJAS DE TEXTO Y COMBOS (QLineEdit, QComboBox, QTimeEdit, QDoubleSpinBox)
+   ========================================================================= */
+QLineEdit, QComboBox, QTimeEdit, QDoubleSpinBox {
+    background-color: #FFFFFF;
+    border: 1px solid #CED4DA;
+    border-radius: 4px;
+    padding: 4px 8px;
+    color: #495057;
+}
+
+QLineEdit:focus, QComboBox:focus, QTimeEdit:focus, QDoubleSpinBox:focus {
+    border: 1px solid #0d6efd;
+    background-color: #F8FBFF;
+}
+
+QComboBox::drop-down {
+    border-left: 1px solid #CED4DA;
+    width: 20px;
+}
+
+/* =========================================================================
+   BOTONES (QPushButton)
+   ========================================================================= */
+QPushButton {
+    background-color: #0d6efd;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 16px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #0b5ed7;
+}
+
+QPushButton:pressed {
+    background-color: #0a58ca;
+}
+
+
+QPushButton#btn_del_cust, QPushButton#btn_del_task {
+    background-color: #dc3545;
+}
+QPushButton#btn_del_cust:hover, QPushButton#btn_del_task:hover {
+    background-color: #bb2d3b;
+}
+
+QPushButton#btn_clear {
+    background-color: #6c757d;
+}
+QPushButton#btn_clear:hover {
+    background-color: #5c636a;
+}
+
+/* =========================================================================
+   TABLAS (QTableWidget)
+   ========================================================================= */
+QTableWidget {
+    background-color: #FFFFFF;
+    alternate-background-color: #E6F2FF;
+    color: #333333;
+    border: 1px solid #DEE2E6;
+    gridline-color: #CED4DA;
+    selection-background-color: #0d6efd;
+    selection-color: #FFFFFF;
+    border-radius: 4px;
+}
+
+QTableWidget::item {
+    color: #333333;
+}
+
+QHeaderView::section {
+    background-color: #F8F9FA;
+    color: #495057;
+    padding: 4px;
+    border: none;
+    border-right: 1px solid #DEE2E6;
+    border-bottom: 1px solid #DEE2E6;
+    font-weight: bold;
+}
+
+/* =========================================================================
+   ETIQUETAS (QLabel) y RADIO BUTTONS (QRadioButton)
+   ========================================================================= */
+QLabel {
+    background: transparent;
+    font-weight: 500;
+}
+
+/* =========================================================================
+   RADIO BUTTONS (Versión Sencilla)
+   ========================================================================= */
+QRadioButton {
+    spacing: 5px;
+    color: #333333;
+}
+
+QRadioButton::indicator {
+    width: 12px;
+    height: 12px;
+    border: 1px solid #333333;
+    border-radius: 7px;
+    background-color: transparent;
+}
+
+QRadioButton::indicator:checked {
+    background-color: #0d6efd;
+    border: 1px solid #0d6efd;
+}
