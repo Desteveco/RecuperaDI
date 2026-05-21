@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>647</width>
-    <height>532</height>
+    <width>1168</width>
+    <height>724</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
      <widget class="QTabWidget" name="pan_main">
       <property name="currentIndex">
@@ -31,124 +31,17 @@
         <string>Usuarios</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetDefaultConstraint</enum>
-        </property>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0,0">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <layout class="QGridLayout" name="gridLayout_4" rowstretch="0,0,0,0" columnstretch="0,0,0,0,0,0,0">
-            <property name="sizeConstraint">
-             <enum>QLayout::SetDefaultConstraint</enum>
-            </property>
-            <property name="horizontalSpacing">
-             <number>4</number>
-            </property>
-            <property name="verticalSpacing">
-             <number>6</number>
-            </property>
-            <item row="1" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QLabel" name="lbl_name_4">
-              <property name="text">
-               <string>Teléfono:  </string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="3">
-             <widget class="QLineEdit" name="le_dni">
-              <property name="minimumSize">
-               <size>
-                <width>90</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>125</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="autoFillBackground">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-             <widget class="QLabel" name="lb_email">
-              <property name="text">
-               <string>Email:   </string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0" alignment="Qt::AlignHCenter">
+           <layout class="QGridLayout" name="gridLayout_2">
+            <item row="0" column="0">
              <widget class="QLabel" name="lbl_name_3">
               <property name="text">
                <string>Nombre:  </string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="lbl_dni">
-              <property name="text">
-               <string>DNI/CIF:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="5">
-             <widget class="QRadioButton" name="rb_paper">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Empleado</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="4">
-             <widget class="QLabel" name="lbl_invoice">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Tipo:  </string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0" alignment="Qt::AlignHCenter">
-             <widget class="QLabel" name="lbl_address">
-              <property name="text">
-               <string>Dirección:  </string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1" colspan="5" alignment="Qt::AlignVCenter">
-             <widget class="QLineEdit" name="le_address">
-              <property name="minimumSize">
-               <size>
-                <width>200</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>9999</width>
-                <height>25</height>
-               </size>
               </property>
              </widget>
             </item>
@@ -174,35 +67,42 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="le_email">
-              <property name="minimumSize">
-               <size>
-                <width>100</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>400</width>
-                <height>25</height>
-               </size>
+            <item row="0" column="2">
+             <widget class="QLabel" name="lbl_dni">
+              <property name="text">
+               <string>DNI/CIF:</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="3">
-             <widget class="QLineEdit" name="le_phone">
+            <item row="0" column="3">
+             <widget class="QLineEdit" name="le_dni">
               <property name="minimumSize">
                <size>
-                <width>150</width>
+                <width>90</width>
                 <height>35</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>300</width>
+                <width>125</width>
                 <height>25</height>
                </size>
+              </property>
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="lbl_invoice">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Tipo:  </string>
               </property>
              </widget>
             </item>
@@ -222,94 +122,237 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="0" colspan="7">
-             <layout class="QHBoxLayout" name="horizontalLayout_8">
-              <item>
-               <widget class="QPushButton" name="btn_save_cust">
-                <property name="minimumSize">
-                 <size>
-                  <width>100</width>
-                  <height>25</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>99999</width>
-                  <height>25</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Save</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="btn_modify_cust">
-                <property name="minimumSize">
-                 <size>
-                  <width>100</width>
-                  <height>25</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>99999</width>
-                  <height>25</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Modify</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="btn_del_cust">
-                <property name="minimumSize">
-                 <size>
-                  <width>100</width>
-                  <height>25</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>99999</width>
-                  <height>25</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Delete</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Fixed</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>200</width>
-                  <height>10</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="btn_clear">
-                <property name="text">
-                 <string>Clear</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+            <item row="1" column="0">
+             <widget class="QLabel" name="lb_email">
+              <property name="text">
+               <string>Email:   </string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="le_email">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>400</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="lbl_name_4">
+              <property name="text">
+               <string>Teléfono:  </string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLineEdit" name="le_phone">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>300</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QRadioButton" name="rb_paper">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Empleado</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="lbl_address">
+              <property name="text">
+               <string>Dirección:  </string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="le_address">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>9999</width>
+                <height>25</height>
+               </size>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
           <item>
-           <widget class="QLabel" name="lbl_list_cust">
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>200</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_save_cust">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>99999</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Save</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_modify_cust">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>99999</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Modify</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_8">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_del_cust">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>99999</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Delete</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_clear">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Clear</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_6">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>200</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_list_users">
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -324,9 +367,9 @@
             </property>
             <property name="font">
              <font>
-              <pointsize>24</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
+              <pointsize>11</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="layoutDirection">
@@ -359,6 +402,9 @@
               <width>600</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
             </property>
            </widget>
           </item>
@@ -407,31 +453,30 @@
        <attribute name="title">
         <string>Tareas</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <layout class="QGridLayout" name="gridLayout_7">
-            <item row="2" column="0">
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>Horas trabajadas:  </string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="QLabel" name="label_2">
-              <property name="text">
-               <string>Precio por hora: </string>
-              </property>
-             </widget>
-            </item>
+           <layout class="QGridLayout" name="gridLayout">
             <item row="0" column="0">
              <widget class="QLabel" name="lbl_name_product">
               <property name="text">
                <string>Cliente:  </string>
               </property>
              </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="cb_cliente"/>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="lbl_unit_price">
+              <property name="text">
+               <string>Servicio:  </string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLineEdit" name="le_servicio"/>
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="lbl_stock">
@@ -440,37 +485,155 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="3">
-             <widget class="QLabel" name="lbl_unit_price">
-              <property name="text">
-               <string>Servicio:  </string>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="cb_empleado">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
               </property>
              </widget>
             </item>
-            <item row="0" column="1" colspan="2">
-             <widget class="QLineEdit" name="le_name_product"/>
-            </item>
-            <item row="1" column="1" colspan="2">
-             <widget class="QLineEdit" name="le_stock"/>
-            </item>
-            <item row="0" column="3">
+            <item row="1" column="2">
              <widget class="QLabel" name="lbl_family">
               <property name="text">
                <string>Estado:  </string>
               </property>
              </widget>
             </item>
-            <item row="1" column="4">
-             <widget class="QLineEdit" name="le_unit_price"/>
+            <item row="1" column="3">
+             <widget class="QComboBox" name="cb_estado">
+              <item>
+               <property name="text">
+                <string/>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Pendiente</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>En Curso</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Finalizada</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Facturada</string>
+               </property>
+              </item>
+             </widget>
             </item>
-            <item row="0" column="4">
-             <widget class="QComboBox" name="cb_family"/>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Horas trabajadas:  </string>
+              </property>
+             </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QLineEdit" name="lineEdit"/>
+             <widget class="QTimeEdit" name="te_horas"/>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Precio por hora: </string>
+              </property>
+             </widget>
             </item>
             <item row="2" column="3">
-             <widget class="QLineEdit" name="lineEdit_2"/>
+             <widget class="QDoubleSpinBox" name="sp_precio"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <item>
+             <widget class="QPushButton" name="btn_save_task">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>99999</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Save</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_modify_task">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>99999</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Modify</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_del_task">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>99999</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Delete</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>200</width>
+                <height>10</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_clear_task">
+              <property name="text">
+               <string>Clear</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -521,7 +684,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>647</width>
+     <width>1168</width>
      <height>21</height>
     </rect>
    </property>
@@ -535,10 +698,22 @@
      <string>Acerca de</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuInformes">
+    <property name="title">
+     <string>Informes</string>
+    </property>
+    <addaction name="actionListado_Usuarios"/>
+   </widget>
    <addaction name="menuArchivo"/>
+   <addaction name="menuInformes"/>
    <addaction name="menuAcerca_de"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionListado_Usuarios">
+   <property name="text">
+    <string>Listado Usuarios</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
