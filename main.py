@@ -5,7 +5,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 from window import Ui_MainWindow
-from menuActions import generar_pdf_usuarios
+from menuActions import generar_pdf_usuarios, generar_pdf_tareas
 
 
 class MiVentana(QtWidgets.QMainWindow):
@@ -33,12 +33,13 @@ class MiVentana(QtWidgets.QMainWindow):
         # Menú Informes
         if hasattr(self.ui, 'actionListado_Usuarios'):
             self.ui.actionListado_Usuarios.triggered.connect(lambda: generar_pdf_usuarios(self))
+        if hasattr(self.ui, 'actionListado_Tareas'):
+            self.ui.actionListado_Tareas.triggered.connect(lambda: generar_pdf_tareas(self))
         # Ajuste de tabla Usuarios
         header_usuarios = self.ui.table_customer.horizontalHeader()
         header_usuarios.setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
 
 
-        # AÑADE ESTO: Ajuste de tabla Tareas al 100%
         header_tareas = self.ui.table_product.horizontalHeader()
         header_tareas.setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
 
@@ -110,7 +111,6 @@ class MiVentana(QtWidgets.QMainWindow):
         if hasattr(self.ui, 'cb_filtro_tipo'):
             self.ui.cb_filtro_tipo.currentTextChanged.connect(self.actualizar_tabla)
 
-        # Señales y Filtros de Tareas
         if hasattr(self.ui, 'btn_save_task'):
             self.ui.btn_save_task.clicked.connect(self.addTarea)
             self.ui.btn_modify_task.clicked.connect(self.modifTarea)
@@ -270,9 +270,7 @@ class MiVentana(QtWidgets.QMainWindow):
             w.clear()
             w.setStyleSheet("")
 
-        # ==========================
-        # LÓGICA TAREAS
-        # ==========================
+
     def actualizar_combos_tareas(self):
         """Carga clientes y empleados desde la BD"""
         if not hasattr(self.ui, 'cb_cliente'): return
@@ -282,7 +280,6 @@ class MiVentana(QtWidgets.QMainWindow):
             self.ui.cb_empleado.blockSignals(True)
             self.ui.cb_cliente.clear()
             self.ui.cb_empleado.clear()
-            # Opción vacía para poder ver toda la tabla sin filtros
             self.ui.cb_cliente.addItem("--- Todos / Seleccionar ---", None)
             self.ui.cb_empleado.addItem("--- Todos / Seleccionar ---", None)
             cursor.execute("SELECT IDUsuario, Nombre FROM Usuarios WHERE Tipo='Cliente'")
@@ -296,6 +293,7 @@ class MiVentana(QtWidgets.QMainWindow):
             self.actualizar_tabla_tareas()
         except sqlite3.Error as e:
             print(e)
+
     def actualizar_tabla_tareas(self):
         """Renderizado de tabla y filtrado dinámico"""
         if not hasattr(self.ui, 'cb_cliente'): return
@@ -320,18 +318,32 @@ class MiVentana(QtWidgets.QMainWindow):
             cursor = self.conexion.cursor()
             cursor.execute(query, params)
             tareas = cursor.fetchall()
-            self.ui.table_product.setColumnCount(6)
+
+            self.ui.table_product.setSortingEnabled(False)
+
+            self.ui.table_product.setColumnCount(7)
             self.ui.table_product.setHorizontalHeaderLabels(
-                ["Cliente", "Empleado", "Servicio", "Horas", "Precio/h", "Estado"])
+                ["ID", "Cliente", "Empleado", "Servicio", "Horas", "Precio/h", "Estado"])
             self.ui.table_product.setRowCount(0)
+
             for r_idx, r_data in enumerate(tareas):
                 self.ui.table_product.insertRow(r_idx)
-                for c_idx in range(1, len(r_data)):
+                for c_idx in range(len(r_data)):
                     val = r_data[c_idx]
-                    item = QtWidgets.QTableWidgetItem(str(val) if val is not None else "")
-                    if c_idx == 1:
+                    item = QtWidgets.QTableWidgetItem()
+
+                    if isinstance(val, (int, float)):
+                        item.setData(QtCore.Qt.ItemDataRole.EditRole, val)
+                    else:
+                        item.setText(str(val) if val is not None else "")
+
+                    if c_idx == 0:
                         item.setData(QtCore.Qt.ItemDataRole.UserRole, r_data[0])
-                    self.ui.table_product.setItem(r_idx, c_idx - 1, item)
+
+                    self.ui.table_product.setItem(r_idx, c_idx, item)
+
+            self.ui.table_product.setSortingEnabled(True)
+
         except sqlite3.Error as e:
             print(e)
     def selTarea(self):
@@ -339,26 +351,28 @@ class MiVentana(QtWidgets.QMainWindow):
         fila = self.ui.table_product.currentRow()
         if fila == -1: return
 
-        # ¡NUEVO!: Guardamos el ID de la tarea en la memoria de la clase
         self.tarea_seleccionada = self.ui.table_product.item(fila, 0).data(QtCore.Qt.ItemDataRole.UserRole)
 
         self.ui.cb_cliente.blockSignals(True)
         self.ui.cb_empleado.blockSignals(True)
 
-        self.ui.cb_cliente.setCurrentText(self.ui.table_product.item(fila, 0).text())
-        self.ui.cb_empleado.setCurrentText(self.ui.table_product.item(fila, 1).text())
+        self.ui.cb_cliente.setCurrentText(self.ui.table_product.item(fila, 1).text())
+        self.ui.cb_empleado.setCurrentText(self.ui.table_product.item(fila, 2).text())
 
         self.ui.cb_cliente.blockSignals(False)
         self.ui.cb_empleado.blockSignals(False)
 
-        self.ui.le_servicio.setText(self.ui.table_product.item(fila, 2).text())
-        horas = self.ui.table_product.item(fila, 3).text()
+        self.ui.le_servicio.setText(self.ui.table_product.item(fila, 3).text())
+
+        horas = self.ui.table_product.item(fila, 4).text()
         if horas:
             self.ui.te_horas.setTime(QtCore.QTime.fromString(horas, "HH:mm"))
-        precio = self.ui.table_product.item(fila, 4).text()
+
+        precio = self.ui.table_product.item(fila, 5).text()
         if precio:
             self.ui.sp_precio.setValue(float(precio))
-        self.ui.cb_estado.setCurrentText(self.ui.table_product.item(fila, 5).text())
+
+        self.ui.cb_estado.setCurrentText(self.ui.table_product.item(fila, 6).text())
     def validacion_tareas(self):
         if not self.ui.cb_cliente.currentData():
             QtWidgets.QMessageBox.warning(self, "Aviso", "Seleccione un Cliente.")
@@ -374,7 +388,6 @@ class MiVentana(QtWidgets.QMainWindow):
     def addTarea(self):
         if not self.validacion_tareas(): return
         try:
-            # Leemos los valores uno a uno para detectar dónde falla si hay un error
             id_cli = self.ui.cb_cliente.currentData()
             id_emp = self.ui.cb_empleado.currentData()
             servicio = self.ui.le_servicio.text()
@@ -388,7 +401,6 @@ class MiVentana(QtWidgets.QMainWindow):
             )
             self.conexion.commit()
 
-            # Recargamos la tabla y limpiamos
             self.actualizar_tabla_tareas()
             self.limpiar_campos_tarea()
 
@@ -397,13 +409,11 @@ class MiVentana(QtWidgets.QMainWindow):
         except sqlite3.Error as e:
             QtWidgets.QMessageBox.critical(self, "Error de Base de Datos", str(e))
         except Exception as e:
-            # Esto evita el crash 0xC0000409 y te dice exactamente qué está fallando
             print(f"Fallo en Python: {e}")
             QtWidgets.QMessageBox.critical(self, "Error de Código",
                                            f"Asegúrate de que te_horas es QTimeEdit y sp_precio es QDoubleSpinBox en Qt Designer.\nError: {e}")
 
     def modifTarea(self):
-        # ¡NUEVO!: Verificamos la memoria en lugar de la fila de la tabla
         if not hasattr(self, 'tarea_seleccionada') or self.tarea_seleccionada is None:
             QtWidgets.QMessageBox.warning(self, "Aviso", "Seleccione una tarea de la tabla para modificarla.")
             return
@@ -425,7 +435,6 @@ class MiVentana(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.critical(self, "Error", str(e))
 
     def delTarea(self):
-        # ¡NUEVO!: Verificamos la memoria en lugar de la fila de la tabla
         if not hasattr(self, 'tarea_seleccionada') or self.tarea_seleccionada is None:
             QtWidgets.QMessageBox.warning(self, "Aviso", "Seleccione una tarea de la tabla para eliminarla.")
             return
@@ -439,7 +448,6 @@ class MiVentana(QtWidgets.QMainWindow):
             self.actualizar_tabla_tareas()
 
     def limpiar_campos_tarea(self):
-        # ¡NUEVO!: Borramos la memoria
         self.tarea_seleccionada = None
 
         self.ui.cb_cliente.setCurrentIndex(0)
