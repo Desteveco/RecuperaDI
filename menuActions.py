@@ -4,6 +4,7 @@ from PyQt6.QtPrintSupport import QPrinter
 
 
 def generar_pdf_usuarios(parent):
+    '''Abre un cuadro de diálogo para seleccionar la ruta de guardado y genera un informe en PDF con todos los usuarios (ordenados alfabéticamente). Construye una plantilla visual utilizando HTML nativo con la fecha actual y utiliza el motor de impresión de PyQt6 para su exportación.'''
     try:
         ruta_archivo, _ = QtWidgets.QFileDialog.getSaveFileName(
             parent, "Guardar Informe PDF", "Listado_Usuarios.pdf", "Archivos PDF (*.pdf)"
@@ -87,6 +88,7 @@ def generar_pdf_usuarios(parent):
 
 
 def generar_pdf_tareas(parent):
+    '''Exporta un informe en PDF con el registro completo de las tareas. Ejecuta una consulta LEFT JOIN para proteger el informe en caso de usuarios eliminados, calcula automáticamente el importe total de cada tarea (horas por precio) y configura la impresora virtual en formato horizontal (Landscape) y resolución de pantalla para garantizar la correcta visualización de todas las columnas.'''
     try:
         ruta_archivo, _ = QtWidgets.QFileDialog.getSaveFileName(
             parent, "Guardar Informe PDF", "Listado_Tareas.pdf", "Archivos PDF (*.pdf)"

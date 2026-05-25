@@ -10,6 +10,13 @@ from menuActions import generar_pdf_usuarios, generar_pdf_tareas
 
 class MiVentana(QtWidgets.QMainWindow):
     def __init__(self) -> None:
+        """
+            Constructor principal de la ventana.
+
+            Inicializa la interfaz gráfica, la base de datos,
+            carga los estilos visuales, configura las validaciones
+            y realiza la primera carga de datos en las tablas.
+            """
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -44,6 +51,10 @@ class MiVentana(QtWidgets.QMainWindow):
         header_tareas.setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
 
     def cargar_estilos(self) -> None:
+        """
+            Busca y aplica el archivo de hojas de estilo (QSS)
+            para dar diseño a la interfaz gráfica.
+            """
         ruta_script = os.path.dirname(os.path.abspath(__file__))
         ruta_qss = os.path.join(ruta_script, "styles", "estilos.qss")
 
@@ -54,6 +65,12 @@ class MiVentana(QtWidgets.QMainWindow):
             print(f"Ojo: No se ha encontrado el archivo de estilos en {ruta_qss}")
 
     def configurar_base_de_datos(self):
+        """
+            Genera el archivo SQLite y establece la conexión.
+
+            Crea las tablas relacionales de Usuarios y Tareas
+            en caso de que no existan.
+            """
         try:
             ruta_base = os.path.dirname(os.path.abspath(__file__))
             self.db_path = os.path.join(ruta_base, "data", "bd.db")
@@ -91,12 +108,23 @@ class MiVentana(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.critical(self, "Error BBDD", str(e))
 
     def configurar_validadores(self) -> None:
+        """
+            Aplica expresiones regulares (Regex) a los campos
+            de texto para limitar la entrada de datos a formatos
+            válidos de NIF/CIF y números de teléfono móvil.
+            """
         reg_nif = QtCore.QRegularExpression(r"^[0-9]{0,8}[A-Za-z]?$")
         self.ui.le_dni.setValidator(QtGui.QRegularExpressionValidator(reg_nif))
         reg_movil = QtCore.QRegularExpression(r"^[67][0-9]{0,8}$")
         self.ui.le_phone.setValidator(QtGui.QRegularExpressionValidator(reg_movil))
 
     def conectar_senales(self) -> None:
+        """
+            Vincula los eventos de la interfaz
+            (clics en botones, cambios de texto,
+            selección en tablas) con las funciones
+            lógicas correspondientes.
+            """
         self.ui.le_dni.textChanged.connect(self.validar_nif_visual)
         self.ui.le_phone.textChanged.connect(self.validar_movil_visual)
 
@@ -123,6 +151,12 @@ class MiVentana(QtWidgets.QMainWindow):
 
 
     def validar_nif_visual(self):
+        """
+            Calcula si la letra del NIF introducido
+            es matemáticamente correcta y cambia
+            el color de fondo del campo a verde
+            (correcto) o rojo (incorrecto).
+            """
         nif = self.ui.le_dni.text().upper()
         letras = "TRWAGMYFPDXBNJZSQVHLCKE"
         if len(nif) == 9 and nif[:8].isdigit() and nif[8].isalpha():
@@ -134,6 +168,11 @@ class MiVentana(QtWidgets.QMainWindow):
             self.ui.le_dni.setStyleSheet("")
 
     def validar_movil_visual(self):
+        """
+            Comprueba la longitud del número de teléfono
+            y cambia el color de fondo del campo a verde
+            si cumple el formato esperado.
+            """
         if len(self.ui.le_phone.text()) == 9:
             self.ui.le_phone.setStyleSheet("background-color: #d4edda; color: black;")
         else:
@@ -141,7 +180,15 @@ class MiVentana(QtWidgets.QMainWindow):
 
 
     def validacion_basica(self):
-        """Cumple el requisito de: Nombre obligatorio, Email obligatorio, Tipo obligatorio"""
+
+        """
+    Cumple el requisito de:
+    Nombre obligatorio, Email obligatorio,
+    Tipo obligatorio.
+
+    Verifica estos campos antes de permitir
+    operaciones en la base de datos.
+    """
         nombre = self.ui.le_name.text().strip()
         email = self.ui.le_email.text().strip()
 
@@ -157,7 +204,15 @@ class MiVentana(QtWidgets.QMainWindow):
         return True
 
     def actualizar_tabla(self) -> None:
-        """Renderizado dinámico de datos"""
+        """
+            Renderizado dinámico de datos.
+
+            Lee los usuarios de la base de datos,
+            aplica filtros si los hay y dibuja
+            las filas correspondientes en la
+            tabla de Usuarios.
+            """
+
         query = 'SELECT IDUsuario, Nombre, NIF_CIF, Dirección, Email, Móvil, Tipo FROM Usuarios'
         if hasattr(self.ui, 'cb_filtro_tipo'):
             filtro = self.ui.cb_filtro_tipo.currentText()
@@ -187,7 +242,14 @@ class MiVentana(QtWidgets.QMainWindow):
             print(f"Error cargando tabla: {e}")
 
     def selUsuario(self) -> None:
-        """Carga datos de la lista en el formulario"""
+        """
+            Carga datos de la lista en el formulario.
+
+            Al hacer clic en una fila, transfiere
+            los valores a los cuadros de texto
+            para su edición.
+            """
+
         fila = self.ui.table_customer.currentRow()
         if fila == -1: return
 
@@ -208,7 +270,12 @@ class MiVentana(QtWidgets.QMainWindow):
             self.ui.rb_electronic.setChecked(True)
 
     def addUsuario(self):
-        """Añade un usuario tras validar"""
+        """
+            Añade un usuario tras validar.
+
+            Ejecuta la inserción SQL en la tabla
+            de Usuarios y refresca las vistas.
+            """
         if not self.validacion_basica(): return
         tipo = "Empleado" if self.ui.rb_paper.isChecked() else "Cliente"
         try:
@@ -225,7 +292,12 @@ class MiVentana(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.critical(self, "Error", str(e))
 
     def delUsuario(self):
-        """Elimina usando delete"""
+        """
+            Elimina usando delete.
+
+            Pide confirmación y borra al usuario
+            seleccionado de la base de datos.
+            """
         fila = self.ui.table_customer.currentRow()
         if fila == -1:
             QtWidgets.QMessageBox.warning(self, "Aviso", "Seleccione un usuario para eliminar.")
@@ -242,7 +314,13 @@ class MiVentana(QtWidgets.QMainWindow):
             self.limpiar_campos()
 
     def modifUsuario(self):
-        """Modifica un usuario"""
+        """
+            Modifica un usuario.
+
+            Actualiza la información del registro
+            seleccionado en la base de datos con
+            los datos actuales del formulario.
+            """
         fila = self.ui.table_customer.currentRow()
         if fila == -1:
             QtWidgets.QMessageBox.warning(self, "Aviso", "Seleccione un usuario para modificar.")
@@ -266,13 +344,24 @@ class MiVentana(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.critical(self, "Error", str(e))
 
     def limpiar_campos(self):
+        """
+            Vacía los textos y restablece
+            los colores de fondo del formulario
+            de Usuarios.
+            """
         for w in [self.ui.le_name, self.ui.le_dni, self.ui.le_address, self.ui.le_email, self.ui.le_phone]:
             w.clear()
             w.setStyleSheet("")
 
 
     def actualizar_combos_tareas(self):
-        """Carga clientes y empleados desde la BD"""
+        """
+            Carga clientes y empleados desde la BD.
+
+            Llena los menús desplegables del panel
+            de tareas filtrando a los usuarios
+            por su tipo.
+            """
         if not hasattr(self.ui, 'cb_cliente'): return
         try:
             cursor = self.conexion.cursor()
@@ -295,7 +384,13 @@ class MiVentana(QtWidgets.QMainWindow):
             print(e)
 
     def actualizar_tabla_tareas(self):
-        """Renderizado de tabla y filtrado dinámico"""
+        """
+            Renderizado de tabla y filtrado dinámico.
+
+            Cruza los datos de Tareas y Usuarios,
+            procesa valores numéricos para ordenación
+            y dibuja la tabla de tareas.
+            """
         if not hasattr(self.ui, 'cb_cliente'): return
         query = """
             SELECT T.IDTarea, C.Nombre, E.Nombre, T.Servicio, T.HorasTrabajadas, T.PrecioHora, T.Estado 
@@ -347,7 +442,13 @@ class MiVentana(QtWidgets.QMainWindow):
         except sqlite3.Error as e:
             print(e)
     def selTarea(self):
-        """Cargar formulario bloqueando señales y guardando el ID en memoria"""
+        """
+            Cargar formulario bloqueando señales
+            y guardando el ID en memoria.
+
+            Transfiere los datos de la fila de tareas
+            seleccionada al formulario.
+            """
         fila = self.ui.table_product.currentRow()
         if fila == -1: return
 
@@ -386,6 +487,11 @@ class MiVentana(QtWidgets.QMainWindow):
         return True
 
     def addTarea(self):
+        """
+           Inserta un nuevo registro relacional
+           en la tabla Tareas utilizando los
+           parámetros seleccionados en la interfaz.
+           """
         if not self.validacion_tareas(): return
         try:
             id_cli = self.ui.cb_cliente.currentData()
@@ -414,6 +520,11 @@ class MiVentana(QtWidgets.QMainWindow):
                                            f"Asegúrate de que te_horas es QTimeEdit y sp_precio es QDoubleSpinBox en Qt Designer.\nError: {e}")
 
     def modifTarea(self):
+        """
+            Sobrescribe los datos de la tarea
+            alojada en memoria con la nueva
+            información reflejada en el formulario.
+            """
         if not hasattr(self, 'tarea_seleccionada') or self.tarea_seleccionada is None:
             QtWidgets.QMessageBox.warning(self, "Aviso", "Seleccione una tarea de la tabla para modificarla.")
             return
@@ -435,6 +546,11 @@ class MiVentana(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.critical(self, "Error", str(e))
 
     def delTarea(self):
+        """
+            Suprime de forma permanente el registro
+            de la tarea seleccionada tras la validación
+            por ventana emergente.
+            """
         if not hasattr(self, 'tarea_seleccionada') or self.tarea_seleccionada is None:
             QtWidgets.QMessageBox.warning(self, "Aviso", "Seleccione una tarea de la tabla para eliminarla.")
             return
@@ -448,6 +564,12 @@ class MiVentana(QtWidgets.QMainWindow):
             self.actualizar_tabla_tareas()
 
     def limpiar_campos_tarea(self):
+        """
+            Devuelve todos los contadores,
+            desplegables y cuadros de texto
+            del panel de tareas a su valor
+            inicial o nulo.
+            """
         self.tarea_seleccionada = None
 
         self.ui.cb_cliente.setCurrentIndex(0)
