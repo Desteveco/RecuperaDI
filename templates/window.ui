@@ -703,6 +703,7 @@
      <string>Informes</string>
     </property>
     <addaction name="actionListado_Usuarios"/>
+    <addaction name="actionListado_Tareas"/>
    </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuInformes"/>
@@ -712,6 +713,11 @@
   <action name="actionListado_Usuarios">
    <property name="text">
     <string>Listado Usuarios</string>
+   </property>
+  </action>
+  <action name="actionListado_Tareas">
+   <property name="text">
+    <string>Listado Tareas</string>
    </property>
   </action>
  </widget>
